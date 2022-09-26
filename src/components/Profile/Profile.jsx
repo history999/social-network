@@ -2,19 +2,18 @@ import React from "react";
 import profile from "./Profile.module.scss"
 import profileImg from "../../img/profile.png"
 import ProfileStatus from './ProfileStatus';
+import { Field, reduxForm } from 'redux-form';
+import {required}  from '../validators/validators'
+import { FormControlInput } from "../FormsControls/FormsControl";
 
 const Profile = (props) => {
 
 
-    let postElement = React.createRef()
-    
-    let addpost = () => {
-        console.log(postElement.current.value)
-        props.clickAddPost(postElement.current.value)
-        postElement.current.value = ''
+
+    let addpost = (values) => {
+        props.clickAddPost(values.inputTextPost)
     }
-    
-    
+
 
     return (
         <div>
@@ -22,8 +21,8 @@ const Profile = (props) => {
                 <div className={profile.info}>
                     <img src={profileImg} alt="" />
                     <div>
-                        <h2>{console.log(props.profile)}</h2>
-                        <ProfileStatus status={props.status} />
+                        <h2>{props.profile.fullName}</h2>
+                        <ProfileStatus clickUpdateStatus={props.setProfileStatus} status={props.status} />
                     </div>
                 </div>
                 <div className={profile.buttons}>
@@ -36,16 +35,27 @@ const Profile = (props) => {
             <div className={profile.posts}>
                 <div className={profile.addPost}>
                     <img src={profileImg} alt="" />
-                    <input  type="text" placeholder="Enter your post" ref={postElement}/>
-                    <button onClick={ addpost }>ADD POST</button>
+                    <FormAddPostRedux onSubmit={addpost}/>
                 </div>
             </div>
             {/* props.posts.length === 0 ? <div>Posts not found</div> :  */}
-            { props.posts.map( p => <div key={p.id}>{p.message}</div> ) }
-            
-            
+            {props.posts.map(p => <div key={p.id}>{p.message}</div>)}
+
+
         </div>
     )
 }
 
 export default Profile
+
+
+const formAddPost = props => {
+    return (
+    <form onSubmit={props.handleSubmit}>
+        <Field validate={[required]} name={'inputTextPost'} component={FormControlInput} placeholder="Enter your post" />
+        <button >ADD POST</button>
+    </form>
+    )
+}
+
+const FormAddPostRedux = reduxForm({form: 'addPostForm'})(formAddPost)

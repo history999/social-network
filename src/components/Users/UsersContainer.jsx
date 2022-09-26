@@ -5,6 +5,7 @@ import { followThunk, getUsers, unfollowThunk } from "../../redux/users-reducer"
 import Users from "./Users";
 import hocAuth from '../../hoc/hocAuth';
 import { compose } from "redux";
+import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalCount, getUsersSelector } from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -30,11 +31,11 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsersSelector(state),
+        pageSize: getPageSize(state),
+        totalCount: getTotalCount(state),
+        currentPage: getCurrentPage(state),
+        followingInProgress: getFollowingInProgress(state)
     }
    
 }

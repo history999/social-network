@@ -1,35 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import profile from './Profile.module.scss'
 
-class ProfileStatus extends React.Component {
-    state = {
-        editMode: false
+function ProfileStatus(props){
+    
+    const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status);
+
+  
+    const onStatusChange = (e) => {
+        setStatus(e.currentTarget.value)
     }
 
-    clickEditStatus(){
-        this.setState({
-            editMode: true
-        })
+    const NotclickEditStatus = () => {
+        setEditMode(false)
+        
+        props.clickUpdateStatus(status)
     }
 
-    NotclickEditStatus(){
-        this.setState({
-            editMode: false
-        })
-    }
-
-    render() {
         return (
-            <p><span> О себе: </span>
-                {!this.state.editMode ? <div onDoubleClick={this.clickEditStatus.bind(this)}>
-                    <br /> {this.props.status}
+            <div><span> Статус: </span>
+                {!editMode ? <div onDoubleClick={()=>setEditMode(true)}>
+                    {props.status || "Информации пока нет"}
                 </div> :
                     <div>
-                        <br /> <input className={profile.inputStatus} autoFocus onBlur={this.NotclickEditStatus.bind(this)} type="text" value={this.props.status} />
+                       <input className={profile.inputStatus} onChange={onStatusChange} autoFocus onBlur={NotclickEditStatus} type="text" value={status} />
                     </div>}
-            </p>
+            </div>
         )
-    }
 }
 
 export default ProfileStatus

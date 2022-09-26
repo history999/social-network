@@ -1,31 +1,32 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { updateNewPostText, getProfile, getProfileStatus } from "../../redux/profile-reducer";
+import { updateNewPostText, getProfile, getProfileStatus, setProfileStatus } from "../../redux/profile-reducer";
 import Profile from '../Profile/Profile'
 import hocAuth from '../../hoc/hocAuth'
 import {compose} from 'redux'
 import { useParams } from "react-router-dom";
-// import {withRouter} from 'react-router-dom'
 
-// class ProfileContainer extends React.Component 
 function ProfileContainer(props){
     let {userId} = useParams();
     if (!userId){
-        userId = 2
+        userId = props.id
     }
     useEffect(() => {
        props.getProfile(userId)
-    //    this.props.getProfileStatus(userId)
+       props.getProfileStatus(userId)
     }, [userId])
 
-    const clickAddPost = (postInfo) => {
+     const clickAddPost = (postInfo) => {
         props.updateNewPostText(postInfo)
     }
+
+  
 
         return (
             <Profile 
             {...props}
-            profile={props.profile}
+            clickAddPost={clickAddPost}
+            clickUpdateStatus={props.setProfileStatus}
             />
         )
 }
@@ -33,6 +34,7 @@ function ProfileContainer(props){
 let mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
+        id: state.authReducer.id,
         newPostText: state.profilePage.newPostText,
         status: state.profilePage.status,
         profile: state.profilePage.profile
@@ -40,8 +42,6 @@ let mapStateToProps = (state) => {
    
 }
 
-
-
     export default compose (connect(mapStateToProps, 
-        {updateNewPostText, getProfile, getProfileStatus}),
+        {updateNewPostText, getProfile, getProfileStatus, setProfileStatus}),
         hocAuth)(ProfileContainer)
