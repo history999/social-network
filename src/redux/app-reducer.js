@@ -4,9 +4,6 @@ const SET_DATA_ISAUTH = 'SET_DATA_ISAUTH'
 
 
 let initialState = {
-    id: null,
-    email: null,
-    login: null,
     isAuth: false
 }
 

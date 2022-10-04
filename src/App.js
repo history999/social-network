@@ -2,7 +2,7 @@ import './App.scss';
 import { Route, Routes } from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer"
 import Navbar from "./components/Navbar/Navbar"
-import ProfileContainer from "./components/Profile/ProfileContainer"
+import Profile from "./components/Profile/Profile"
 import Prices from "./components/Prices/Prices"
 import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login';
@@ -32,9 +32,9 @@ function App() {
       <div className='AppStyle'>
         <Navbar className="navbar" />
         <Routes>
-          <Route path="/profile" element={<ProfileContainer className="profile" />}>
-            <Route index element={<ProfileContainer className="profile" />}></Route>
-            <Route path=":userId" element={<ProfileContainer className="profile" />}></Route>
+          <Route path="/profile" element={<Profile className="profile" />}>
+            <Route index element={<Profile className="profile" />}></Route>
+            <Route path=":userId" element={<Profile className="profile" />}></Route>
           </Route>
           <Route path="/prices" element={<Prices className="prices" />}></Route>
           <Route path="/users" element={<UsersContainer className="users" />}></Route>

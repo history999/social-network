@@ -1,5 +1,4 @@
 import * as axios from "axios";
-import { setCurrentPage } from "../redux/users-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -37,6 +36,18 @@ export const profileAPI = {
     },
     updateStatus(status){
         return instance.put('profile/status', {status})
+    },
+    updateProfileInfo(profile){
+        return instance.put('profile', profile)
+    },
+    updateProfileMainPhoto(data){
+        let formData = new FormData();
+        formData.append("image", data)
+        return instance.put('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -48,12 +59,15 @@ export const authAPI = {
             .then(response => response.data)
     },
 
-    login(email, password, rememberMe = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    login(email, password, rememberMe = false, captcha) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
         
     },
 
     logout() {
         return instance.delete('auth/login')
+    },
+    captcha() {
+        return instance.get(`security/get-captcha-url`)
     }
 }

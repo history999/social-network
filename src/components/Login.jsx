@@ -10,7 +10,7 @@ const Login = (props) => {
     let isAuth = useSelector((state) => state.authReducer.isAuth)
 
     const onSubmit = (formData) => {
-        props.loginThunk(formData.login, formData.password, formData.rememberMe)
+        props.loginThunk(formData.login, formData.password, formData.rememberMe, formData.captcha)
     }
     if(isAuth){
        return <Navigate to="/profile"  />
@@ -26,6 +26,7 @@ const Login = (props) => {
 export default connect(null, {loginThunk})(Login);
 
 const LoginForm = props => {
+    const captchaUrl = useSelector((state) => state.authReducer.captchaUrl)
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -35,8 +36,12 @@ const LoginForm = props => {
                 <Field validate={[required]} component={'input'} name={'password'} placeholder={"Password"} />
             </div>
             <div>
-                <Field validate={[required]} component={'input'} type={'checkbox'} name={'rememberMe'} />
+                Remember me: <Field validate={[required]} component={'input'} type={'checkbox'} name={'rememberMe'} />
             </div>
+            {captchaUrl && <div>
+                <img src={captchaUrl} alt="" />
+                <Field validate={[required]} component={'input'} type={'input'} name={'captcha'} />
+            </div>}
             <button >Submit</button>
         </form>
     )
