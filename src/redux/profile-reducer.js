@@ -1,4 +1,4 @@
-import { profileAPI } from "../api/api"
+import { profileAPI, usersAPI } from "../api/api"
 import authReducer from './auth-reducer';
 
 const ADD_POSTS = 'ADD_POSTS'
@@ -7,6 +7,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_LOADING = 'SET_LOADING'
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
 const INFO_EDIT_MODE_CHANGE = 'INFO_EDIT_MODE_CHANGE'
+const UPDATE_SUBSCRIPTIONS = 'UPDATE_SUBSCRIPTIONS'
 
 let initialState = {
     posts: [
@@ -26,7 +27,8 @@ let initialState = {
     status: 'Напишите что-нибудь',
     profile: {},
     loading: true,
-    infoEditMode: false
+    infoEditMode: false,
+    subscriptions: 0
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -41,6 +43,8 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts, newPost]
             }
 
+        
+        case UPDATE_SUBSCRIPTIONS:
         case SET_LOADING:
         case GET_STATUS:
         case SET_USER_PROFILE:
@@ -60,11 +64,12 @@ const profileReducer = (state = initialState, action) => {
 }
 
 export const addPostAC = (newPostText) => ({ type: ADD_POSTS, newPostText })
+export const updateSubscriptionAC = (subscriptions) => ({ type: UPDATE_SUBSCRIPTIONS, payload: { subscriptions } })
 export const getStatusAction = (status) => ({ type: GET_STATUS, payload: { status } })
 export const setUserProfileAC = (profile) => ({ type: SET_USER_PROFILE, payload: { profile } })
 export const setLoadingAC = (loading) => ({ type: SET_LOADING, payload: { loading } })
 export const savePhotoSuccess = (photos) => ({ type: SAVE_PHOTO_SUCCESS, photos })
-export const changeInfoEditMode = (infoEditMode) => ({ type: INFO_EDIT_MODE_CHANGE, payload: {infoEditMode} })
+export const changeInfoEditMode = (infoEditMode) => ({ type: INFO_EDIT_MODE_CHANGE, payload: { infoEditMode } })
 
 export const updateNewPostText = (postInfo) => (dispatch) => {
 
@@ -75,7 +80,11 @@ export const updateNewPostText = (postInfo) => (dispatch) => {
 export const getProfile = (userID) => async (dispatch) => {
     let response = await profileAPI.getProfile(userID)
     dispatch(setUserProfileAC(response.data))
-    dispatch(setLoadingAC(false))
+}
+
+export const updateSubscriptions = () => async (dispatch) => {
+    let response = await usersAPI.getUsers(1, 100, '', true)
+    dispatch(updateSubscriptionAC(response.items.length))
 }
 
 
@@ -110,7 +119,9 @@ export const changeInfoEditModeThunk = (editMode) => (dispatch) => {
     dispatch(changeInfoEditMode(editMode))
 }
 
-
+export const loadingComponentThunk = (value) => (dispatch) => {
+    dispatch(setLoadingAC(value))
+}
 
 
 

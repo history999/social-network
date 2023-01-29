@@ -8,8 +8,29 @@
     }
 }
 
+.usersforminput {
+    width: 90%;
+}
+
+
+.form_search {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 7fr 1fr 1fr;
+
+    .selectFollow {
+        padding: 13px 15px 13px;
+        border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    }
+}
+
+
+
 span {
     cursor: pointer;
+    
 }
 
 .selected {

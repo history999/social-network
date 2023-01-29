@@ -8,6 +8,7 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const IS_FETCHING = 'IS_FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
+const SET_FILTER = 'SET_FILTER'
 
 let initialState = {
     users: [],
@@ -15,7 +16,11 @@ let initialState = {
     pageSize: 10,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
+    filter: {
+        term: '',
+        friend: null
+    }
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -43,6 +48,8 @@ const usersReducer = (state = initialState, action) => {
                     ? [...state.followingInProgress, action.id]
                     : state.followingInProgress.filter(id => id != action.id)
             }
+        case SET_FILTER:
+            return {...state, filter: action.payload}
 
         default: return state
     }
@@ -55,11 +62,13 @@ export const followAC = (id) => ({ type: FOLLOW, id })
 export const unFollowAC = (id) => ({ type: UNFOLLOW, id })
 export const toggleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching })
 export const toggleFollowingProgress = (isFetching, id) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id })
+export const setFilterAC = (filter) => ({ type: SET_FILTER, payload: filter })
 
 
-export const getUsers = (currentPage, pageSize) => async (dispatch) => {
+export const getUsers = (currentPage, pageSize, filter) => async (dispatch, getState) => {
     dispatch(toggleIsFetching(true))
-    let data = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setFilterAC(filter));
+    let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(toggleIsFetching(false))
     dispatch(setUsers(data.items));
     dispatch(setTotalCount(data.totalCount));

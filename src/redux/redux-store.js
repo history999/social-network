@@ -4,14 +4,18 @@ import usersReducer from './users-reducer'
 import profileReducer from './profile-reducer'
 import authReducer from './auth-reducer'
 import appReducer from './app-reducer'
+import dialogsReducer from './dialogs-reducer'
 import { reducer as formReducer } from 'redux-form'
+import chatReducer from './chat-reducer';
 
 let reducers = combineReducers({
     usersPage: usersReducer,
     profilePage: profileReducer,
     authReducer: authReducer,
     form: formReducer,
-    appReducer: appReducer
+    appReducer: appReducer,
+    chatReducer: chatReducer,
+    dialogsReducer: dialogsReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunk));

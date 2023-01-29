@@ -12,7 +12,7 @@ function ProfileStatus(props) {
 
 
     const onStatusChange = (e) => {
-        setStatus(e.currentTarget.value)
+            setStatus(e.currentTarget.value)
     }
 
     const NotclickEditStatus = () => {
@@ -23,12 +23,12 @@ function ProfileStatus(props) {
     return (
         <div><span> Status: </span>
             {!editMode ?
-                <div className={profile.hoverStatus} onClick={() => setEditMode(true)}>
+                <div className={profile.hoverStatus} onClick={() => props.userId === props.userIdProfile && setEditMode(true)}>
                     {props.status || "Информации пока нет"}
                 </div>
                 :
                 <div>
-                    <input className={profile.inputStatus} onChange={onStatusChange} autoFocus onBlur={NotclickEditStatus} type="text" value={status} />
+                    <input className={profile.inputStatus}  onChange={onStatusChange}  autoFocus onBlur={NotclickEditStatus} type="text" value={status} />
                 </div>}
         </div>
     )

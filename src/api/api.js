@@ -9,8 +9,8 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage = 1, pageSize = 10, term = '', friend = null) {
+        return instance.get(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`))
             .then(response => response.data)
     },
     follow(id) {
@@ -20,27 +20,42 @@ export const usersAPI = {
     unFollow(id) {
         return instance.delete(`follow/${id}`)
     },
-    getProfile(userID){
+    getProfile(userID) {
         return profileAPI.getProfile(userID)
     }
 }
 
-
+export const dialogsAPI = {
+    getDialogs() {
+        return instance.get(`dialogs/`)
+            .then(response => response.data)
+    },
+    startChatting(userIdChat = 10) {
+        return instance.put('dialogs/' + userIdChat)
+    },
+    getMessageWithUser(userIdChat) {
+        return instance.get('dialogs/' + userIdChat + '/messages')
+            .then(response => response.data)
+    },
+    sendMessageUser(userId, body) {
+        return instance.post('dialogs/' + userId + '/messages', {userId, body})
+    },
+}
 
 export const profileAPI = {
-    getProfile(userID){
+    getProfile(userID) {
         return instance.get('profile/' + userID)
     },
-    getStatus(userID){
+    getStatus(userID) {
         return instance.get('profile/status/' + userID)
     },
-    updateStatus(status){
-        return instance.put('profile/status', {status})
+    updateStatus(status) {
+        return instance.put('profile/status', { status })
     },
-    updateProfileInfo(profile){
+    updateProfileInfo(profile) {
         return instance.put('profile', profile)
     },
-    updateProfileMainPhoto(data){
+    updateProfileMainPhoto(data) {
         let formData = new FormData();
         formData.append("image", data)
         return instance.put('profile/photo', formData, {
@@ -54,14 +69,14 @@ export const profileAPI = {
 
 export const authAPI = {
     getAuthData() {
-        return instance.get(`auth/me`, 
-        {withCredentials: true})
+        return instance.get(`auth/me`,
+            { withCredentials: true })
             .then(response => response.data)
     },
 
     login(email, password, rememberMe = false, captcha) {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
-        
+        return instance.post(`auth/login`, { email, password, rememberMe, captcha })
+
     },
 
     logout() {
