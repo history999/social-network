@@ -9,7 +9,7 @@ export default function UsersSearchForm(props) {
     const dispatch = useDispatch()
 
     const submit = (filter) => {
-        dispatch(getUsers(props.currentPage, props.pageSize, filter))
+        dispatch(getUsers(1, props.pageSize, filter))
     }
 
 

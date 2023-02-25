@@ -1,5 +1,5 @@
 import React from "react";
-import header from "./Header"
+import header from "./Header.module.scss"
 import { NavLink } from "react-router-dom";
 import { logoutThunk } from "../../redux/auth-reducer";
 import { useDispatch } from 'react-redux';
@@ -9,10 +9,13 @@ const Header = (props) => {
 
     return (
         <div className={header.header}>
-            {props.isAuth === true ? 
-            <div>{props.email} <button onClick={() => dispatch(logoutThunk())}>Logout</button></div> : 
-            <NavLink to="/Login">LOGIN</NavLink>}
-            
+            {props.isAuth ?
+                <>
+                    <p>{props.email}</p>
+                    <button className="standart-button" onClick={() => dispatch(logoutThunk())}>Logout</button>
+                </> :
+                <NavLink to="/Login">LOGIN</NavLink>}
+
         </div>
     )
 }

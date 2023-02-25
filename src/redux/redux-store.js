@@ -7,6 +7,7 @@ import appReducer from './app-reducer'
 import dialogsReducer from './dialogs-reducer'
 import { reducer as formReducer } from 'redux-form'
 import chatReducer from './chat-reducer';
+import pricesReducer from './prices-reducer';
 
 let reducers = combineReducers({
     usersPage: usersReducer,
@@ -15,7 +16,8 @@ let reducers = combineReducers({
     form: formReducer,
     appReducer: appReducer,
     chatReducer: chatReducer,
-    dialogsReducer: dialogsReducer
+    dialogsPage: dialogsReducer,
+    pricesPage: pricesReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunk));

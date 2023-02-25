@@ -69,10 +69,10 @@ export const getUsers = (currentPage, pageSize, filter) => async (dispatch, getS
     dispatch(toggleIsFetching(true))
     dispatch(setFilterAC(filter));
     let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
-    dispatch(toggleIsFetching(false))
     dispatch(setUsers(data.items));
     dispatch(setTotalCount(data.totalCount));
     dispatch(setPage(currentPage))
+    dispatch(toggleIsFetching(false))
 }
 
 const followAndUnFollowThunk = async (dispatch, id, followOrUnFollowAC, followOrUnFollowAPI) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import profileStyle from "./Profile.module.scss"
 import userIcon from "../../img/profile.png"
-import ProfileStatus from './ProfileStatus';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../validators/validators'
 import { FormControlInput } from "../FormsControls/FormsControl";
@@ -9,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getProfile, getProfileStatus, loadingComponentThunk, updateNewPostText } from './../../redux/profile-reducer';
 import ProfileInfo from './ProfileInfo';
+import { HourGlass } from "react-awesome-spinners";
 
 const Profile = (props) => {
     const id = useSelector((state) => state.authReducer.id)
@@ -25,12 +25,12 @@ const Profile = (props) => {
 
     let dispatch = useDispatch()
 
-    
+
     useEffect(() => {
         dispatch(getProfile(userId))
         dispatch(getProfileStatus(userId))
-        dispatch(loadingComponentThunk(false))
-    }, [userId])
+        // dispatch(loadingComponentThunk(false))
+    }, [userId, dispatch])
 
     let addpost = (values) => {
         dispatch(updateNewPostText(values.inputTextPost))
@@ -40,15 +40,14 @@ const Profile = (props) => {
         setProfileImg(img)
     }
 
-    if(loading){
-        return <div>Loading!</div>
+    if (loading) {
+        return <HourGlass />
     }
 
     return (
 
         <div>
             <ProfileInfo updateProfileImg={updateProfileImg} userId={userId} />
-
             <div className={profileStyle.posts}>
                 {userId === id &&
                     <div className={profileStyle.addPost}>
@@ -57,7 +56,16 @@ const Profile = (props) => {
                     </div>
                 }
             </div>
-            {posts.length === 0 ? <div>Posts not found</div> : posts.map(p => <div key={p.id}>{p.message}</div>)}
+            {userId === id && <>
+                {posts.length === 0 ? <div>Posts not found</div> : posts.map(p =>
+                <div className={profileStyle.posts}>
+                    <div className={profileStyle.addPost + ' ' + profileStyle.postItem} key={p.id}>
+                        <p>{p.message}</p>
+                    </div>
+                </div>
+            )}
+            </>
+            }
 
         </div>
     )

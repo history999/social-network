@@ -1,0 +1,36 @@
+.form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: 200px;
+    text-align: center;
+    grid-template-areas:
+        ". a a ."
+        ". a a .";
+
+    p {
+        color:red;
+    }
+
+    div {
+        grid-area: a;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .rememberMe {
+        color: black;
+    }
+
+    .input, button, .rememberMe {
+        margin-top: 10px;
+    }
+}
+
+h1 {
+    text-align: center;
+}
+
+.input {
+    width: 100%;
+}

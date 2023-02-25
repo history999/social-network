@@ -1,6 +1,16 @@
 .header {
     width: 100%;
     display: grid;
-    height: 100px;
-    grid-template-columns: 10fr;
+    grid-template-columns: 10fr 1fr;
+    grid-gap: 10px;
+    text-align: end;
+    margin-top: 1em;
+
+    p {
+        margin-top: 7px;
+    }
+
+    button {
+        margin-right: 10px;
+    }
 }

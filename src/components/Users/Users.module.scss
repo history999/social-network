@@ -1,10 +1,21 @@
 .users {
     display: grid;
-    grid-gap: 35px;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 8fr;
+    grid-gap: 10px;
+    margin: 15px 0px;
 
     img {
-        width: 100%;
+        width: 80px;
+    }
+
+    .blockButton {
+        
+        a, button {
+            margin-right: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            padding: 5px 20px;
+        }
     }
 }
 
@@ -26,7 +37,9 @@
     }
 }
 
-
+.pagination {
+    margin-top: 15px;
+}
 
 span {
     cursor: pointer;

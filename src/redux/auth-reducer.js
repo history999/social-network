@@ -5,7 +5,7 @@ const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL'
 
 
 let initialState = {
-    id: 24737,
+    id: 0,
     email: null,
     login: null,
     isAuth: false,
@@ -30,15 +30,15 @@ const authReducer = (state = initialState, action) => {
 export const setUserDataAC = (email, id, login, isAuth, captcha) => ({ type: SET_USER_DATA, data: { email, id, login, isAuth, captcha } })
 export const setCaptchaUrl = (captchaImg) => ({ type: SET_CAPTCHA_URL, captchaImg })
 
-export const setUserDataThunk = (data) => {
-    return async (dispatch) => {
+export const setUserDataThunk = (data) => async (dispatch) => {
+      
         let data = await authAPI.getAuthData()
 
         if (data.resultCode === 0) {
             let { email, id, login } = data.data;
             dispatch(setUserDataAC(email, id, login, true))
         }
-    }
+    
 }
 
 export const loginThunk = (login, password, rememberMe, captcha) => async (dispatch) => {

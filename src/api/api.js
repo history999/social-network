@@ -30,8 +30,8 @@ export const dialogsAPI = {
         return instance.get(`dialogs/`)
             .then(response => response.data)
     },
-    startChatting(userIdChat = 10) {
-        return instance.put('dialogs/' + userIdChat)
+    startChatting(userId) {
+        return instance.put('dialogs/' + userId)
     },
     getMessageWithUser(userIdChat) {
         return instance.get('dialogs/' + userIdChat + '/messages')
@@ -39,6 +39,9 @@ export const dialogsAPI = {
     },
     sendMessageUser(userId, body) {
         return instance.post('dialogs/' + userId + '/messages', {userId, body})
+    },
+    deleteMessageUser(messageId) {
+        return instance.delete('dialogs/' + '/messages/' + messageId)
     },
 }
 
