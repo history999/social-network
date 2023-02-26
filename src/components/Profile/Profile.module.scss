@@ -6,7 +6,12 @@
     .info {
         display: grid;
         grid-gap: 35px;
-        grid-template-columns: 2fr 4fr 4fr;
+        grid-template-columns: 3fr 4fr;
+
+        .inputChangeImage {
+            height: 23px;
+width: 172px;
+        }
 
         img {
             width: 100%;
@@ -21,6 +26,7 @@
             button {
                 font-size: 12px;
                 padding: 5px 20px;          
+                margin-top: 10px;
             }
 
             h2 {
@@ -140,4 +146,3 @@
         display: block;
     }
 }
-

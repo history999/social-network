@@ -70,7 +70,7 @@ export default function ProfileInfo(props) {
                   <p>{profile.lookingForAJob && <div><b>My skills:</b> {profile.lookingForAJobDescription}</div>}</p>
                   {
                     profileContactsKey.map((item, key) => (
-                      <p className={profileStyle.contactLinks} key={key}>{item[0]}: {item[1] || <span>NO</span>}</p>
+                      <p className={profileStyle.contactLinks} key={key}>{item[0]}: {<a target="_blank" href={item[1]}>{item[1]}</a> || <span>NO</span>}</p>
                     ))
                   }
 

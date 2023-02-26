@@ -6,8 +6,12 @@ import { FormControlInput } from './../FormsControls/FormsControl';
 import HOCField from './../FormsControls/HOCField';
 import { useDispatch } from 'react-redux';
 import { saveChangesPhoto, changeInfoEditModeThunk } from './../../redux/profile-reducer';
+import { lengthRequired, required } from '../validators/validators';
+
+const lengthFieldValidator = lengthRequired(20)
 
 const FormEditInfo = props => {
+
 
     let dispatch = useDispatch();
   
@@ -23,14 +27,14 @@ const FormEditInfo = props => {
           <div className={profileStyle.profile}>
             <div className={profileStyle.info}>
               <img src={props.profile.photos.large || profileImg} alt="" />
-              <input type={"file"} onChange={changeMainPhoto} />
+              <input className={profileStyle.inputChangeImage} type={"file"} onChange={changeMainPhoto} />
               <div>
-                <h2>{HOCField('fullName', FormControlInput, 'Your Name')}</h2>
+                <h2>{HOCField('fullName', FormControlInput, 'Your Name', {validate: [required]})}</h2>
                 <div>
                   <h4>About me</h4>
                   <p>{HOCField('aboutMe', FormControlInput, 'About me')}</p>
                   <p>Looking for a job: {HOCField('lookingForAJob', FormControlInput, '', { type: "checkbox" })}</p>
-                  <p>Professional skills: {HOCField('lookingForAJobDescription', FormControlInput, 'Professional skills')}</p>
+                  <p>Professional skills: {HOCField('lookingForAJobDescription', FormControlInput, 'Professional skills', { validate: [lengthFieldValidator] } )}</p>
                 </div>
               </div>
               <div>
@@ -42,8 +46,8 @@ const FormEditInfo = props => {
                   <p>VK: {HOCField('contacts.vk', FormControlInput, 'Your VK')}</p>
                   <p>Website: {HOCField('contacts.website', FormControlInput, 'Your website')}</p>
                   <p>YouTube: {HOCField('contacts.youtube', FormControlInput, 'Your YouTube')}</p>
-                  <button type="submit">Save changes</button>
-                  <button onClick={() => dispatch(changeInfoEditModeThunk(false))}>Cancel</button>
+                  <button className='standart-button' type="submit">Save changes</button>
+                  <button className='standart-button' onClick={() => dispatch(changeInfoEditModeThunk(false))}>Cancel</button>
                 </div>
               </div>
             </div>
