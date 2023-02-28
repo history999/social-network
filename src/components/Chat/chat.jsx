@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendMessageThunk, startMessagingThunk } from '../../redux/chat-reducer';
 import { stopMessagingThunk } from '../../redux/chat-reducer';
 import { HourGlass } from 'react-awesome-spinners';
+import { NavLink } from 'react-router-dom';
 
 
 const Chat = () => {
@@ -57,11 +58,11 @@ const Chat = () => {
                             <div>
                                 <img width="60px" src={m.photo} alt="" />
                             </div>
-                            <div>
+                            {<NavLink to={'/profile/' + m.userId}>
                                 <h3>{m.userName}</h3>
                                 <p>{m.message}</p>
                                 <div ref={autoScrollDiv} />
-                            </div>                            
+                            </NavLink>}                            
                         </div>
                     )
 

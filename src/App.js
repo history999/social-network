@@ -43,6 +43,7 @@ function App() {
         <div className='AppStyle'>
           <Navbar className="navbar" />
           <Routes>
+            <Route path="/" element={<Profile className="profile" />}></Route>
             <Route path="/profile" element={<Profile className="profile" />}>
               <Route index element={<Profile className="profile" />}></Route>
               <Route path=":userId" element={<Profile className="profile" />}></Route>

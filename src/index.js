@@ -10,14 +10,14 @@ import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let rerender = (state) => {
   root.render(
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter >
       <Provider store={store}>
         <App />
       </Provider>
     </BrowserRouter>)
 }
 
-
+// basename={process.env.PUBLIC_URL}
 rerender(store.getState());
 
 store.subscribe(rerender)

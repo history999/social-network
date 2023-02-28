@@ -74,3 +74,12 @@ padding: 10px 20px;
 .ezfjyw::after {
   border-color: #000 transparent #000 transparent;
 }
+
+a {
+        text-decoration: none;
+        color: #06c;
+
+        :hover {
+          color: black
+        }
+    }
