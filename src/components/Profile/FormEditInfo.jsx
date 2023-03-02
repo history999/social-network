@@ -31,8 +31,7 @@ const FormEditInfo = props => {
               <div>
                 <h2>{HOCField('fullName', FormControlInput, 'Your Name', {validate: [required]})}</h2>
                 <div>
-                  <h4>About me</h4>
-                  <p>{HOCField('aboutMe', FormControlInput, 'About me')}</p>
+                  <p>About me: {HOCField('aboutMe', FormControlInput, 'About me')}</p>
                   <p>Looking for a job: {HOCField('lookingForAJob', FormControlInput, '', { type: "checkbox" })}</p>
                   <p>Professional skills: {HOCField('lookingForAJobDescription', FormControlInput, 'Professional skills', { validate: [lengthFieldValidator] } )}</p>
                 </div>

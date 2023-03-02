@@ -3,10 +3,20 @@
     border-radius: 10px;
     padding: 42px 62px;
 
+    @media screen and (max-width: 768px) {
+        padding: 15px 10px;
+      }
+
     .info {
         display: grid;
         grid-gap: 35px;
         grid-template-columns: 3fr 4fr;
+
+        @media screen and (max-width: 768px) {
+        padding: 15px 10px;
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
 
         .inputChangeImage {
             height: 23px;
@@ -32,6 +42,10 @@ width: 172px;
             h2 {
                 font-size: 30px;
                 font-weight: 900;
+
+                @media screen and (max-width: 768px) {
+                    font-size: 20px;
+                  }
             }
 
             div {
@@ -56,6 +70,10 @@ width: 172px;
         grid-gap: 10px;
         grid-auto-rows: auto;
         margin-top: 50px;
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: 1fr;
+          }
 
         div {
             background-color: #DCDCDC;
@@ -104,17 +122,28 @@ width: 172px;
         background-color: #F0F0F0;
         border-radius: 15px;
         padding: 10px 10px;
-        grid-auto-rows: minmax(43px, 43px);
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: 12fr;
+          }
 
         img {
             height: 43px;
             border-radius: 15px;
+
+            @media screen and (max-width: 768px) {
+                display: none;
+              }
         }
 
         form {
             display: grid;
             grid-template-columns: 10fr 4fr;
             grid-gap: 20px;
+
+            @media screen and (max-width: 768px) {
+                grid-template-columns: 10fr 6fr;
+              }
 
             
             input {

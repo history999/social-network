@@ -29,6 +29,11 @@
     grid-gap: 10px;
     grid-template-columns: 7fr 1fr 1fr;
 
+    @media screen and (max-width: 768px) {
+        grid-gap: 5px;
+grid-template-columns: 7fr 3fr 1fr;
+      }
+
     .selectFollow {
         padding: 13px 15px 13px;
         border-radius: 10px;

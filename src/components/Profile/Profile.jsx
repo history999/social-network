@@ -77,7 +77,7 @@ export default Profile
 const formAddPost = props => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field validate={[required]} name={'inputTextPost'} component={FormControlInput} placeholder="Enter your post" />
+            <Field name={'inputTextPost'} component={FormControlInput} placeholder="Enter your post" />
             <button className='standart-button'>ADD POST</button>
         </form>
     )
