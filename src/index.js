@@ -16,7 +16,7 @@ let rerender = (state) => {
       </Provider>
     </BrowserRouter>)
 }
-
+// 
 rerender(store.getState());
 
 store.subscribe(rerender)
