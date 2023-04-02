@@ -13,7 +13,7 @@ const LoginForm = props => {
                 <h1>LOGIN</h1>
                 <Field validate={[required, email]} className={'standart-input' + ' ' + loginStyle.input} component={FormControlInput} name={'login'} placeholder={"Login"} />
                 <Field validate={[required]} className={'standart-input' + ' ' + loginStyle.input} component={FormControlInput} type={'password'} name={'password'} placeholder={"Password"} />
-                <p className={loginStyle.rememberMe}>Remember me: <Field validate={[required]} component={'input'} type={'checkbox'} name={'rememberMe'} /></p>
+                <p className={loginStyle.rememberMe}>Remember me: <Field component={'input'} type={'checkbox'} name={'rememberMe'} /></p>
                 {captchaUrl && <div>
                     <img src={captchaUrl} alt="" />
                     <Field validate={[required]} className={'standart-input' + ' ' + loginStyle.input} component={FormControlInput} type={'input'} name={'captcha'} />
